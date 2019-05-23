@@ -1,6 +1,6 @@
 {
   "name": "@truefit/bach-recompose",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "set of enhancers for @truefit/bach inspired by recompose",
   "main": "lib/index.js",
   "scripts": {
@@ -16,9 +16,12 @@
   "bugs": {
     "url": "https://github.com/TrueFit/bach-recompose/issues"
   },
+  "browserslist": [
+    "defaults"
+  ],
   "homepage": "https://github.com/TrueFit/bach-recompose#readme",
   "dependencies": {
-    "@truefit/bach": "^0.1.7",
+    "@truefit/bach": "^0.1.11",
     "react": "^16.8.6"
   },
   "devDependencies": {
