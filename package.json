@@ -1,6 +1,6 @@
 {
   "name": "@truefit/bach-recompose",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "set of enhancers for @truefit/bach inspired by recompose",
   "main": "lib/index.js",
   "scripts": {
