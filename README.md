@@ -53,16 +53,22 @@ const Component = ({sayHello, sayGoodbye}) => (
     <div>
       <button onClick={sayGoodbye}>Say Goodbye</button>
     </div>
+    <div>
+      <button onClick={sayAnything('anything')}>Say Anything</button>
+    </div>
   </div>
 );
 
 export default compose(
   withHandlers({
-    sayHello: (props) => {
+    sayHello: (props) => () => {
       console.log('Hello');
     },
-    sayGoodbye: (props) => {
+    sayGoodbye: (props) => () => {
       console.log('Goodbye');
+    },
+    sayAnything: (props) => (message) => () => {
+      console.log(message);
     },
   }),
 )(Component);
@@ -70,7 +76,7 @@ export default compose(
 
 _Underlying React Hook_
 
-[useEffect](https://reactjs.org/docs/hooks-reference.html#useeffect)
+[useCallback](https://reactjs.org/docs/hooks-reference.html#usecallback)
 
 #### withLifecycle
 

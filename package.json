@@ -21,15 +21,15 @@
   ],
   "homepage": "https://github.com/TrueFit/bach-recompose#readme",
   "dependencies": {
-    "@truefit/bach": "^0.1.11",
+    "@truefit/bach": "^0.1.16",
     "react": "^16.8.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.4",
+    "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",

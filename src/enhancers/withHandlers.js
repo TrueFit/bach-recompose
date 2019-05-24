@@ -9,9 +9,7 @@ export default (map = {}) => ({generateNewVariable}) => {
       result.dependencies[alt] = map[key];
       result.keys.push(key);
       result.functions.push(`
-        const ${key} = useCallback(function () {
-          ${alt}(${PROPS});
-        }, [${PROPS}]);
+        const ${key} = useCallback(${alt}(${PROPS}), [${PROPS}]);
       `);
 
       return result;
