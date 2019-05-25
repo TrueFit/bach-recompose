@@ -27,6 +27,11 @@ As the author of recompose points out in his deprecation notice, you can accompl
 
 You can find a full React project with simple working examples of each hook, as well as more complex examples that combine hooks here: [https://github.com/TrueFit/bach-examples](https://github.com/TrueFit/bach-examples).
 
+
+#### Enhancer List
+* [withHandlers](#withHandlers)
+* [withLifecycle](#withLifecycle)
+
 #### withHandlers
 
 Allows you to quickly define multiple withCallback instances in one definition.
@@ -53,22 +58,16 @@ const Component = ({sayHello, sayGoodbye}) => (
     <div>
       <button onClick={sayGoodbye}>Say Goodbye</button>
     </div>
-    <div>
-      <button onClick={sayAnything('anything')}>Say Anything</button>
-    </div>
   </div>
 );
 
 export default compose(
   withHandlers({
-    sayHello: (props) => () => {
+    sayHello: (props) => {
       console.log('Hello');
     },
-    sayGoodbye: (props) => () => {
+    sayGoodbye: (props) => {
       console.log('Goodbye');
-    },
-    sayAnything: (props) => (message) => () => {
-      console.log(message);
     },
   }),
 )(Component);
