@@ -18,6 +18,9 @@ export default (lifecycle = {}) => ({generateNewVariable}) => {
   mapLifecycle('componentDidUpdate');
   mapLifecycle('componentWillUnmount');
 
+  const MOUNTED = generateNewVariable();
+  const PREV_PROPS = generateNewVariable();
+
   return {
     dependencies,
     initialize: `
@@ -25,13 +28,13 @@ export default (lifecycle = {}) => ({generateNewVariable}) => {
       const didUpdate = ${map.componentDidUpdate};
       const willUnmount = ${map.componentWillUnmount};
 
-      const mounted = useRef(false);
-      const previousProps = useRef(null);
+      const ${MOUNTED} = useRef(false);
+      const ${PREV_PROPS} = useRef(null);
 
       useEffect(function () {
-        if (mounted.current && didUpdate) {
-          didUpdate(${PROPS}, previousProps.current);
-          previousProps.current = ${PROPS};
+        if (${MOUNTED}.current && didUpdate) {
+          didUpdate(${PROPS}, ${PREV_PROPS}.current);
+          ${PREV_PROPS}.current = ${PROPS};
         }
       }, [${PROPS}]);
 
@@ -40,12 +43,12 @@ export default (lifecycle = {}) => ({generateNewVariable}) => {
           didMount(${PROPS});
         }
 
-        mounted.current = true;
-        previousProps.current = ${PROPS};
+        ${MOUNTED}.current = true;
+        ${PREV_PROPS}.current = ${PROPS};
 
         if (willUnmount) {
           return function () {
-            willUnmount(previousProps.current);
+            willUnmount(${PREV_PROPS}.current);
           };
         }
       }, []);
