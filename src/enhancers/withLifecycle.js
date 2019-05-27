@@ -38,10 +38,10 @@ export default (lifecycle = {}) => ({generateNewVariable}) => {
       useEffect(function () {
         if (didMount) {
           didMount(${PROPS});
-
-          mounted.current = true;
-          previousProps.current = ${PROPS};
         }
+
+        mounted.current = true;
+        previousProps.current = ${PROPS};
 
         if (willUnmount) {
           return function () {
