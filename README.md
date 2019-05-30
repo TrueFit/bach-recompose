@@ -1,5 +1,5 @@
 # @truefit/bach-recompose
-A set of enhancers for [@truefit/bach](https://github.com/TrueFit/bach) inspired by [recompose](https://github.com/acdlite/recompose)
+A set of enhancers for [@truefit/bach](https://github.com/TrueFit/bach) inspired by [recompose](https://github.com/acdlite/recompose).
 
 ## Using @truefit/bach-recompose
 
@@ -25,12 +25,50 @@ You can read more about the ideas behind [@truefit/bach](https://github.com/True
 
 As the author of recompose points out in his deprecation notice, you can accomplish many (although not all) of the same behaviors provided by this library with a combination of hooks. That said, we think there is still merit to writing code that can be understood at a glance without deep knowledge of the frameworks used and in our opinion that is the role many of these functions play.
 
+Not all of the enhancers require hooks to accomplish their tasks, that said, they follow the same architectural design as all enhancers (logic to be combined into a single component).
+
 You can find a full React project with simple working examples of each hook, as well as more complex examples that combine hooks here: [https://github.com/TrueFit/bach-examples](https://github.com/TrueFit/bach-examples).
 
 
 #### Enhancer List
+* [mapProps](#mapProps)
 * [withHandlers](#withHandlers)
 * [withLifecycle](#withLifecycle)
+* [renameProp](#renameProp)
+* [renameProps](#renameProps)
+
+#### mapProps
+Allows you to transform the props from that point in the composition into a new map of props.
+
+_Note: this can be a dangerous utility as it completely replaces the props object that has been built to this point. Consider that when writing your mapping logic_
+
+_Helper Signature_
+
+| Parameter | Type        | Description                                                                            |
+| --------- | ----------- | -------------------------------------------------------------------------------------- |
+| fn        | js function | accepts a js object "props" and returns a js object to be used as "props" from then on |
+
+
+_Example_
+
+```
+import React from 'react';
+import {compose} from '@truefit/bach';
+import {mapProps} from '@truefit/bach-recompose';
+
+const ChildContent = ({message}) => (
+  <div>
+    <h1>mapProps</h1>
+    <h2>Message: {message}</h2>
+  </div>
+);
+
+const Child = compose(
+  mapProps(({note, ...props}) => ({message: note, ...props})),
+)(ChildContent);
+
+export default () => <Child note="Hello World" />;
+```
 
 #### withHandlers
 
@@ -121,3 +159,66 @@ _Underlying React Hooks_
 
 [useEffect](https://reactjs.org/docs/hooks-reference.html#useeffect)
 [useRef](https://reactjs.org/docs/hooks-reference.html#useref)
+
+#### renameProp
+Allows you to rename a property from one key to another.
+
+_Helper Signature_
+
+| Parameter | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| oldName   | string | the name of the property to rename |
+| newName   | string | the new name of the property       |
+
+
+_Example_
+
+```
+import React from 'react';
+import {compose} from '@truefit/bach';
+import {renameProp} from '@truefit/bach-recompose';
+
+const ChildContent = ({message}) => (
+  <div>
+    <h1>renameProp</h1>
+    <h2>Message: {message}</h2>
+  </div>
+);
+
+const Child = compose(
+  renameProp('note', 'message'),
+)(ChildContent);
+
+export default () => <Child note="Hello World" />;
+```
+
+#### renameProps
+Allows you to rename multiple properties from one set of keys to another.
+
+_Helper Signature_
+
+| Parameter       | Type      | Description                             |
+| --------------- | --------- | --------------------------------------- |
+| propertyNameMap | js object | a map of the old keys to their new keys |
+
+
+_Example_
+
+```
+import React from 'react';
+import {compose} from '@truefit/bach';
+import {renameProps} from '@truefit/bach-recompose';
+
+const ChildContent = ({message}) => (
+  <div>
+    <h1>mapProps</h1>
+    <h2>Message: {message}</h2>
+  </div>
+);
+
+const Child = compose(
+  renameProps({note: 'message'}),
+)(ChildContent);
+
+export default () => <Child note="Hello World" />;
+```
