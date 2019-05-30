@@ -42,6 +42,8 @@ You can find a full React project with simple working examples of each hook, as 
       - [withLifecycle](#withlifecycle)
       - [renameProp](#renameprop)
       - [renameProps](#renameprops)
+      - [renderIf](#renderif)
+      - [renderNothing](#rendernothing)
       - [withProps](#withprops)
 
 #### mapProps
@@ -228,6 +230,63 @@ const Child = compose(
 )(ChildContent);
 
 export default () => <Child note="Hello World" />;
+```
+
+#### renderIf
+
+Allows you to specify a conditional function. If the condition is true, compose will render the specified component
+
+_Helper Signature_
+
+| Parameter   | Type            | Description                                      |
+| ----------- | --------------- | ------------------------------------------------ |
+| conditional | js function     | a function that returns a boolean value          |
+| component   | react component | the component to render if the condition is true |
+
+_Example_
+
+```
+import React from 'react';
+import {compose, withEffect, withState} from '@truefit/bach';
+import {renderIf} from '@truefit/bach-recompose';
+
+const Loading = () => <div>Loading</div>;
+
+const Content = () => <div>Content</div>;
+
+export default compose(
+  withState('loading', 'setLoading', true),
+  withEffect(({setLoading}) => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2500);
+  }, []),
+  renderIf(({loading}) => loading, Loading),
+)(Content);
+```
+
+_Underlying React Hooks_
+
+[useMemo](https://reactjs.org/docs/hooks-reference.html#usememo)
+
+#### renderNothing
+
+Short circuits the render chain and renders nothing.
+
+_Helper Signature_
+
+This enhancer has no parameters
+
+_Example_
+
+```
+import React from 'react';
+import {compose} from '@truefit/bach';
+import {renderNothing} from '@truefit/bach-recompose';
+
+const Content = () => <div>Something</div>;
+
+export default compose(renderNothing())(Content);
 ```
 
 #### withProps

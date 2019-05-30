@@ -720,10 +720,10 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@truefit/bach@^0.1.19":
-  version "0.1.19"
-  resolved "https://registry.yarnpkg.com/@truefit/bach/-/bach-0.1.19.tgz#5b4be5be777d839d0f7d71643d505966f8408a5d"
-  integrity sha512-L0LPa2dVteOmYslOvysHM2eMmI0EXgqk/QoeR+/tivIC2B6pjoi+C/Mhw39mLMlEWtc+n4efaKCPlkyeNncoaA==
+"@truefit/bach@^0.1.22":
+  version "0.1.22"
+  resolved "https://registry.yarnpkg.com/@truefit/bach/-/bach-0.1.22.tgz#cc5dd36fd038a79b8923140f4aedf28a44cc6377"
+  integrity sha512-vkhrbzaYVX7BQmVPoUZPeN7u4a5dWC7mQJ7fMWAB+I9oCMhfxXAFaVB2oZ72A77HOHKzfI/mr6myA4WSmNcs2Q==
   dependencies:
     react "^16.8.6"
 
