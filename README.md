@@ -31,11 +31,18 @@ You can find a full React project with simple working examples of each hook, as 
 
 
 #### Enhancer List
-* [mapProps](#mapProps)
-* [withHandlers](#withHandlers)
-* [withLifecycle](#withLifecycle)
-* [renameProp](#renameProp)
-* [renameProps](#renameProps)
+- [@truefit/bach-recompose](#truefitbach-recompose)
+  - [Using @truefit/bach-recompose](#using-truefitbach-recompose)
+    - [Installation](#installation)
+    - [Enhancers](#enhancers)
+      - [Overview](#overview)
+      - [Enhancer List](#enhancer-list)
+      - [mapProps](#mapprops)
+      - [withHandlers](#withhandlers)
+      - [withLifecycle](#withlifecycle)
+      - [renameProp](#renameprop)
+      - [renameProps](#renameprops)
+      - [withProps](#withprops)
 
 #### mapProps
 Allows you to transform the props from that point in the composition into a new map of props.
@@ -222,3 +229,40 @@ const Child = compose(
 
 export default () => <Child note="Hello World" />;
 ```
+
+#### withProps
+Allows you to supply multiple properties to add the props passed to the wrapped component.
+
+_Helper Signature_
+
+| Parameter   | Type      | Description                                              |
+| ----------- | --------- | -------------------------------------------------------- |
+| propertyMap | js object | a map of the keys to their values (objects or functions) |
+
+
+_Example_
+
+```
+import React from 'react';
+import {compose} from '@truefit/bach';
+import {withProps} from '@truefit/bach-recompose';
+
+const WithProps = ({title, description}) => (
+  <div>
+    <h1>withProps</h1>
+    <h2>Title: {title}</h2>
+    <h2>Description: {description}</h2>
+  </div>
+);
+
+export default compose(
+  withProps({
+    title: 'Hello',
+    description: (props) => 'World'
+  }),
+)(WithProps);
+```
+
+_Underlying React Hooks_
+
+[useMemo](https://reactjs.org/docs/hooks-reference.html#usememo)
