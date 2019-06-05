@@ -1,4 +1,5 @@
 # @truefit/bach-recompose
+
 A set of enhancers for [@truefit/bach](https://github.com/TrueFit/bach) inspired by [recompose](https://github.com/acdlite/recompose).
 
 ## Using @truefit/bach-recompose
@@ -29,24 +30,19 @@ Not all of the enhancers require hooks to accomplish their tasks, that said, the
 
 You can find a full React project with simple working examples of each hook, as well as more complex examples that combine hooks here: [https://github.com/TrueFit/bach-examples](https://github.com/TrueFit/bach-examples).
 
-
 #### Enhancer List
-- [@truefit/bach-recompose](#truefitbach-recompose)
-  - [Using @truefit/bach-recompose](#using-truefitbach-recompose)
-    - [Installation](#installation)
-    - [Enhancers](#enhancers)
-      - [Overview](#overview)
-      - [Enhancer List](#enhancer-list)
-      - [mapProps](#mapprops)
-      - [withHandlers](#withhandlers)
-      - [withLifecycle](#withlifecycle)
-      - [renameProp](#renameprop)
-      - [renameProps](#renameprops)
-      - [renderIf](#renderif)
-      - [renderNothing](#rendernothing)
-      - [withProps](#withprops)
+
+* [mapProps](#mapprops)
+* [withHandlers](#withhandlers)
+* [withLifecycle](#withlifecycle)
+* [renameProp](#renameprop)
+* [renameProps](#renameprops)
+* [renderIf](#renderif)
+* [renderNothing](#rendernothing)
+* [withProps](#withprops)
 
 #### mapProps
+
 Allows you to transform the props from that point in the composition into a new map of props.
 
 _Note: this can be a dangerous utility as it completely replaces the props object that has been built to this point. Consider that when writing your mapping logic_
@@ -56,7 +52,6 @@ _Helper Signature_
 | Parameter | Type        | Description                                                                            |
 | --------- | ----------- | -------------------------------------------------------------------------------------- |
 | fn        | js function | accepts a js object "props" and returns a js object to be used as "props" from then on |
-
 
 _Example_
 
@@ -110,10 +105,10 @@ const Component = ({sayHello, sayGoodbye}) => (
 
 export default compose(
   withHandlers({
-    sayHello: (props) => {
+    sayHello: (props) => () => {
       console.log('Hello');
     },
-    sayGoodbye: (props) => {
+    sayGoodbye: (props) => () => {
       console.log('Goodbye');
     },
   }),
@@ -170,6 +165,7 @@ _Underlying React Hooks_
 [useRef](https://reactjs.org/docs/hooks-reference.html#useref)
 
 #### renameProp
+
 Allows you to rename a property from one key to another.
 
 _Helper Signature_
@@ -178,7 +174,6 @@ _Helper Signature_
 | --------- | ------ | ---------------------------------- |
 | oldName   | string | the name of the property to rename |
 | newName   | string | the new name of the property       |
-
 
 _Example_
 
@@ -202,6 +197,7 @@ export default () => <Child note="Hello World" />;
 ```
 
 #### renameProps
+
 Allows you to rename multiple properties from one set of keys to another.
 
 _Helper Signature_
@@ -209,7 +205,6 @@ _Helper Signature_
 | Parameter       | Type      | Description                             |
 | --------------- | --------- | --------------------------------------- |
 | propertyNameMap | js object | a map of the old keys to their new keys |
-
 
 _Example_
 
@@ -290,6 +285,7 @@ export default compose(renderNothing())(Content);
 ```
 
 #### withProps
+
 Allows you to supply multiple properties to add the props passed to the wrapped component.
 
 _Helper Signature_
@@ -297,7 +293,6 @@ _Helper Signature_
 | Parameter   | Type      | Description                                              |
 | ----------- | --------- | -------------------------------------------------------- |
 | propertyMap | js object | a map of the keys to their values (objects or functions) |
-
 
 _Example_
 
