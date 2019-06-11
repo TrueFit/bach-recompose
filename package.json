@@ -1,6 +1,6 @@
 {
   "name": "@truefit/bach-recompose",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "description": "set of enhancers for @truefit/bach inspired by recompose",
   "main": "lib/index.js",
   "scripts": {
@@ -24,7 +24,7 @@
   ],
   "homepage": "https://github.com/TrueFit/bach-recompose#readme",
   "dependencies": {
-    "@truefit/bach": "^0.1.22",
+    "@truefit/bach": "^1.0.0",
     "react": "^16.8.6"
   },
   "devDependencies": {
@@ -41,7 +41,7 @@
     "eslint-plugin-react": "^7.13.0",
     "eslint-plugin-react-hooks": "^1.6.0",
     "nodemon": "^1.19.1",
-    "prettier": "^1.17.1",
+    "prettier": "^1.18.2",
     "shelljs": "^0.8.3"
   }
 }
