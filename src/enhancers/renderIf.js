@@ -1,5 +1,5 @@
 import {useMemo} from 'react';
-import {REACT, PROPS, COMPONENT} from '@truefit/bach';
+import {REACT, PROPS} from '@truefit/bach';
 
 export default (condition, component) => ({generateNewVariable}) => {
   const conditionRef = generateNewVariable();
@@ -14,6 +14,10 @@ export default (condition, component) => ({generateNewVariable}) => {
     },
     initialize: `const ${conditionValue} = useMemo(function() { return ${conditionRef}(${PROPS}); }, [${PROPS}]);`,
     props: [],
-    render: `return ${REACT}.createElement(${conditionValue} ? ${componentRef} : ${COMPONENT}, ${PROPS});`,
+    render: `
+      if (${conditionValue}) {
+        return ${REACT}.createElement(${componentRef}, ${PROPS});
+      }
+    `,
   };
 };
