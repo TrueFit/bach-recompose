@@ -6,3 +6,4 @@ export {default as renameProps} from './renameProps';
 export {default as renderIf} from './renderIf';
 export {default as renderNothing} from './renderNothing';
 export {default as withProps} from './withProps';
+export {default as memo} from './memo';
