@@ -1,6 +1,19 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true
+    "sourceMap": false,
+    "inlineSourceMap": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es5",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "outDir": "lib",
+    "strict": false,
+    "declaration": true
   },
-  "exclude": ["**/node_modules/*", "**/.vscode/*"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "lib"]
 }

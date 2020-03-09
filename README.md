@@ -2,25 +2,21 @@
 
 A set of enhancers for [@truefit/bach](https://github.com/TrueFit/bach) inspired by [recompose](https://github.com/acdlite/recompose).
 
-## Using @truefit/bach-recompose
-
-Since this library is a set of enhancers that works with [@truefit/bach](https://github.com/TrueFit/bach), you need to have [@truefit/bach](https://github.com/TrueFit/bach) as well to use this library.
-
-### Installation
+## Installation
 
 ```
-npm install @truefit/bach-recompose
+npm install @truefit/bach-recompose @truefit/bach
 ```
 
 or
 
 ```
-yarn add @truefit/bach-recompose
+yarn add @truefit/bach-recompose @truefit/bach
 ```
 
-### Enhancers
+## Enhancers
 
-#### Overview
+### Overview
 
 You can read more about the ideas behind [@truefit/bach](https://github.com/TrueFit/bach) in the readme found there. This library is targeted at replicating a decent chunk of the functionality provided by [recompose](https://github.com/acdlite/recompose).
 
@@ -30,31 +26,48 @@ Not all of the enhancers require hooks to accomplish their tasks, that said, the
 
 You can find a full React project with simple working examples of each hook, as well as more complex examples that combine hooks here: [https://github.com/TrueFit/bach-examples](https://github.com/TrueFit/bach-examples).
 
-#### Enhancer List
+### Enhancer List
 
 - [@truefit/bach-recompose](#truefitbach-recompose)
-  - [Using @truefit/bach-recompose](#using-truefitbach-recompose)
-    - [Installation](#installation)
-    - [Enhancers](#enhancers)
-      - [Overview](#overview)
-      - [Enhancer List](#enhancer-list)
-      - [mapProps](#mapprops)
-      - [withHandlers](#withhandlers)
+  - [Installation](#installation)
+  - [Enhancers](#enhancers)
+    - [Overview](#overview)
+    - [Enhancer List](#enhancer-list)
+    - [mapProps](#mapprops)
+      - [Typescript](#typescript)
+      - [Javascript](#javascript)
+    - [withHandlers](#withhandlers)
+      - [Typescript](#typescript-1)
+      - [Javascript](#javascript-1)
       - [withLifecycle](#withlifecycle)
+      - [Typescript](#typescript-2)
+      - [Javascript](#javascript-2)
       - [renameProp](#renameprop)
+      - [Typescript](#typescript-3)
+      - [Javascript](#javascript-3)
       - [renameProps](#renameprops)
+      - [Typescript](#typescript-4)
+      - [Javascript](#javascript-4)
       - [renderIf](#renderif)
+      - [Typescript](#typescript-5)
+      - [Javascript](#javascript-5)
       - [renderNothing](#rendernothing)
+      - [Typescript](#typescript-6)
+      - [Javascript](#javascript-6)
       - [withProps](#withprops)
+      - [Typescript](#typescript-7)
+      - [Javascript](#javascript-7)
       - [memo](#memo)
+      - [Typescript](#typescript-8)
+      - [Javascript](#javascript-8)
 
-#### mapProps
+### mapProps
 
 Allows you to transform the props from that point in the composition into a new map of props.
 
 _Note: this can be a dangerous utility as it completely replaces the props object that has been built to this point. Consider that when writing your mapping logic_
 
-_Helper Signature_
+_Enhancer Signature_
 
 | Parameter | Type        | Description                                                                            |
 | --------- | ----------- | -------------------------------------------------------------------------------------- |
@@ -62,7 +75,38 @@ _Helper Signature_
 
 _Example_
 
+#### Typescript
+
+```Typescript
+import React from 'react';
+import {compose} from '@truefit/bach';
+import {mapProps} from '@truefit/bach-recompose';
+
+type PublicProps = {
+  note: string;
+};
+
+type InternalProps = {
+  message: string;
+};
+
+const ChildContent = ({message}: InternalProps) => (
+  <div>
+    <h1>mapProps</h1>
+    <h2>Message: {message}</h2>
+  </div>
+);
+
+const Child = compose<PublicProps>(
+  mapProps<PublicProps, InternalProps>(({note, ...props}) => ({message: note, ...props})),
+)(ChildContent);
+
+export default () => <Child note="Hello World!" />;
 ```
+
+#### Javascript
+
+```Javascript
 import React from 'react';
 import {compose} from '@truefit/bach';
 import {mapProps} from '@truefit/bach-recompose';
@@ -81,11 +125,11 @@ const Child = compose(
 export default () => <Child note="Hello World" />;
 ```
 
-#### withHandlers
+### withHandlers
 
 Allows you to quickly define multiple withCallback instances in one definition.
 
-_Helper Signature_
+_Enhancer Signature_
 
 | Parameter | Type      | Description                                                                                              |
 | --------- | --------- | -------------------------------------------------------------------------------------------------------- |
@@ -93,7 +137,49 @@ _Helper Signature_
 
 _Example_
 
+#### Typescript
+
+```Typescript
+import React from 'react';
+import {compose} from '@truefit/bach';
+import {withHandlers} from '@truefit/bach-recompose';
+
+type Props = {
+  sayHello: () => void;
+  sayGoodbye: () => void;
+};
+
+const Component = ({sayHello, sayGoodbye}: Props) => (
+  <div>
+    <h1>With Handlers</h1>
+    <div>
+      <button type="button" onClick={sayHello}>
+        Say Hello
+      </button>
+    </div>
+    <div>
+      <button type="button" onClick={sayGoodbye}>
+        Say Goodbye
+      </button>
+    </div>
+  </div>
+);
+
+export default compose(
+  withHandlers<Props>({
+    sayHello: () => () => {
+      console.log('Hello');
+    },
+    sayGoodbye: () => () => {
+      console.log('Goodbye');
+    },
+  }),
+)(Component);
 ```
+
+#### Javascript
+
+```Javascript
 import React from 'react';
 import {compose} from '@truefit/bach';
 import {withHandlers} from '@truefit/bach-recompose';
@@ -128,9 +214,9 @@ _Underlying React Hook_
 
 #### withLifecycle
 
-Allows for more readable code when dealing with the traditional component lifecycle. We use the traditional function names componentDidMount, componentDidUpdate, and componentWillUnmount.
+Allows for an easier transition from class based components. We use the traditional function names componentDidMount, componentDidUpdate, and componentWillUnmount.
 
-_Helper Signature_
+_Enhancer Signature_
 
 | Parameter | Type      | Description                                                                                                                                  |
 | --------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -138,7 +224,40 @@ _Helper Signature_
 
 _Example_
 
+#### Typescript
+
+```Typescript
+import React from 'react';
+import {compose} from '@truefit/bach';
+import {withLifecycle} from '@truefit/bach-recompose';
+
+const Component = () => (
+  <div>
+    <h1>With Lifecycle</h1>
+  </div>
+);
+
+export default compose(
+  withLifecycle<any>({
+    componentDidMount: props => {
+      console.log('Component Did Mount: ', props);
+    },
+
+    componentDidUpdate: (props, prevProps) => {
+      console.log('Component Did Update', props, prevProps);
+    },
+
+    componentWillUnmount: props => {
+      console.log('Component Will Unmount', props);
+    },
+  }),
+)(Component);
+
 ```
+
+#### Javascript
+
+```Javascript
 import React from 'react';
 import {compose} from '@truefit/bach';
 import {withLifecycle} from '@truefit/bach-recompose';
@@ -175,7 +294,7 @@ _Underlying React Hooks_
 
 Allows you to rename a property from one key to another.
 
-_Helper Signature_
+_Enhancer Signature_
 
 | Parameter | Type   | Description                        |
 | --------- | ------ | ---------------------------------- |
@@ -184,7 +303,38 @@ _Helper Signature_
 
 _Example_
 
+#### Typescript
+
+```Typescript
+import React from 'react';
+import {compose} from '@truefit/bach';
+import {renameProp} from '@truefit/bach-recompose';
+
+type ExternalProps = {
+  note: string;
+};
+
+type InternalProps = {
+  message: string;
+};
+
+const ChildContent = ({message}: InternalProps) => (
+  <div>
+    <h1>renameProp</h1>
+    <h2>Message: {message}</h2>
+  </div>
+);
+
+const Child = compose<ExternalProps>(
+  renameProp<InternalProps>('note', 'message')
+)(ChildContent);
+
+export default () => <Child note="Hello World" />;
 ```
+
+#### Javascript
+
+```Javascript
 import React from 'react';
 import {compose} from '@truefit/bach';
 import {renameProp} from '@truefit/bach-recompose';
@@ -207,7 +357,7 @@ export default () => <Child note="Hello World" />;
 
 Allows you to rename multiple properties from one set of keys to another.
 
-_Helper Signature_
+_Enhancer Signature_
 
 | Parameter       | Type      | Description                             |
 | --------------- | --------- | --------------------------------------- |
@@ -215,7 +365,38 @@ _Helper Signature_
 
 _Example_
 
+#### Typescript
+
+```Typescript
+import React from 'react';
+import {compose} from '@truefit/bach';
+import {renameProps} from '@truefit/bach-recompose';
+
+type ExternalProps = {
+  note: string;
+};
+
+type InternalProps = {
+  message: string;
+};
+
+const ChildContent = ({message}: InternalProps) => (
+  <div>
+    <h1>renameProp</h1>
+    <h2>Message: {message}</h2>
+  </div>
+);
+
+const Child = compose<ExternalProps>(
+  renameProps<InternalProps>({note: 'message'}),
+)(ChildContent);
+
+export default () => <Child note="Hello World" />;
 ```
+
+#### Javascript
+
+```Javascript
 import React from 'react';
 import {compose} from '@truefit/bach';
 import {renameProps} from '@truefit/bach-recompose';
@@ -238,7 +419,7 @@ export default () => <Child note="Hello World" />;
 
 Allows you to specify a conditional function. If the condition is true, compose will render the specified component
 
-_Helper Signature_
+_Enhancer Signature_
 
 | Parameter   | Type            | Description                                      |
 | ----------- | --------------- | ------------------------------------------------ |
@@ -247,7 +428,36 @@ _Helper Signature_
 
 _Example_
 
+#### Typescript
+
+```Typescript
+import React from 'react';
+import {compose, withEffect, withState} from '@truefit/bach';
+import {renderIf} from '@truefit/bach-recompose';
+
+type Props = {
+  loading: boolean;
+  setLoading: (b: boolean) => void;
+};
+
+const Loading = () => <div>Loading</div>;
+
+const Content = () => <div>Content</div>;
+
+export default compose(
+  withState('loading', 'setLoading', true),
+  withEffect<Props>(({setLoading}) => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2500);
+  }, []),
+  renderIf<Props>(({loading}) => loading, Loading),
+)(Content);
 ```
+
+#### Javascript
+
+```Javascript
 import React from 'react';
 import {compose, withEffect, withState} from '@truefit/bach';
 import {renderIf} from '@truefit/bach-recompose';
@@ -275,13 +485,27 @@ _Underlying React Hooks_
 
 Short circuits the render chain and renders nothing.
 
-_Helper Signature_
+_Enhancer Signature_
 
 This enhancer has no parameters
 
 _Example_
 
+#### Typescript
+
+```Typescript
+import React from 'react';
+import {compose} from '@truefit/bach';
+import {renderNothing} from '@truefit/bach-recompose';
+
+const Content = () => <div>Something</div>;
+
+export default compose(renderNothing())(Content);
 ```
+
+#### Javascript
+
+```Javascript
 import React from 'react';
 import {compose} from '@truefit/bach';
 import {renderNothing} from '@truefit/bach-recompose';
@@ -295,7 +519,7 @@ export default compose(renderNothing())(Content);
 
 Allows you to supply multiple properties to add the props passed to the wrapped component.
 
-_Helper Signature_
+_Enhancer Signature_
 
 | Parameter   | Type      | Description                                              |
 | ----------- | --------- | -------------------------------------------------------- |
@@ -303,7 +527,38 @@ _Helper Signature_
 
 _Example_
 
+#### Typescript
+
+```Typescript
+import React from 'react';
+import {compose} from '@truefit/bach';
+import {withProps} from '@truefit/bach-recompose';
+
+type Props = {
+  title: string;
+  description: string;
+};
+
+const WithProps = ({title, description}: Props) => (
+  <div>
+    <h1>withProps</h1>
+    <h2>Title: {title}</h2>
+    <h2>Description: {description}</h2>
+  </div>
+);
+
+export default compose(
+  withProps<Props>({
+    title: 'Hello',
+    description: () => 'World',
+  }),
+)(WithProps);
+
 ```
+
+#### Javascript
+
+```Javascript
 import React from 'react';
 import {compose} from '@truefit/bach';
 import {withProps} from '@truefit/bach-recompose';
@@ -328,12 +583,11 @@ _Underlying React Hooks_
 
 [useMemo](https://reactjs.org/docs/hooks-reference.html#usememo)
 
-
 #### memo
 
-Allows you to specify a comparison function to optimize the re-rendering of the component. 
+Allows you to specify a comparison function to optimize the re-rendering of the component.
 
-_Helper Signature_
+_Enhancer Signature_
 
 | Parameter | Type    | Description                                                                                                                                                                        |
 | --------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -341,7 +595,53 @@ _Helper Signature_
 
 _Example_
 
+#### Typescript
+
+```Typescript
+import React from 'react';
+import {compose, withState, withCallback} from '@truefit/bach';
+import {memo} from '@truefit/bach-recompose';
+
+type MemoProps = {
+  count: number;
+};
+
+const Memo = compose<MemoProps>(
+  memo<MemoProps>((prevProps, nextProps) => {
+    return nextProps.count % 2 === 0;
+  }),
+)(({count}: MemoProps) => (
+  <>
+    <h1>Memo</h1>
+    <h2>{count}</h2>
+  </>
+));
+
+type WrapperProps = {
+  count: number;
+  setCount: (n: number) => void;
+
+  increment: () => void;
+};
+
+export default compose(
+  withState<WrapperProps, number>('count', 'setCount', 0),
+  withCallback<WrapperProps>('increment', ({count, setCount}) => () => {
+    setCount(count + 1);
+  }),
+)(({count, increment}: WrapperProps) => (
+  <div>
+    <Memo count={count} />
+    <button type="button" onClick={increment}>
+      Increment
+    </button>
+  </div>
+));
 ```
+
+#### Javascript
+
+```Javascript
 import React from 'react';
 import {compose, withState, withCallback} from '@truefit/bach';
 import {memo} from '@truefit/bach-recompose';
