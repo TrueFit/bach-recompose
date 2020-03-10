@@ -1,16 +1,20 @@
 import {useRef, useEffect} from 'react';
-import {PROPS} from '@truefit/bach';
+import {PROPS, StringKeyMap, EnhancerContext, EnhancerResult} from '@truefit/bach';
+import {LifecycleMap} from '../types';
 
-export default (lifecycle = {}) => ({generateNewVariable}) => {
-  const dependencies = {useRef, useEffect};
-  const map = {
-    componentDidMount: null,
-    componentDidUpdate: null,
-    componentWillUnmount: null,
-  };
+type MapKeys = {[key: string]: string};
 
-  const mapLifecycle = event => {
+export default <T>(lifecycle: LifecycleMap<T>) => ({
+  generateNewVariable,
+}: EnhancerContext): EnhancerResult => {
+  const dependencies: StringKeyMap<unknown> = {useRef, useEffect};
+  const map: MapKeys = {};
+
+  const mapLifecycle = (event: string): void => {
     map[event] = generateNewVariable();
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
     dependencies[map[event]] = lifecycle[event];
   };
 
