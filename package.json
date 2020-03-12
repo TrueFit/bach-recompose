@@ -1,6 +1,6 @@
 {
   "name": "@truefit/bach-recompose",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "set of enhancers for @truefit/bach inspired by recompose",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -33,7 +33,7 @@
     "react": "^16.x"
   },
   "devDependencies": {
-    "@truefit/bach": "2.0.0",
+    "@truefit/bach": "2.0.1",
     "@types/node": "^13.9.0",
     "@types/react": "^16.9.23",
     "@typescript-eslint/eslint-plugin": "^2.23.0",
@@ -46,7 +46,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "prettier": "^1.19.1",
-    "react": "^16.x",
+    "react": "^16.13.0",
     "ts-node": "^8.6.2",
     "typescript": "^3.8.3"
   }
