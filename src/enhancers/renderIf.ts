@@ -4,20 +4,18 @@ import {REACT, PROPS, EnhancerContext, EnhancerResult} from '@truefit/bach';
 export default <T>(condition: (t: T | undefined) => boolean, component: ReactNode) => ({
   generateNewVariable,
 }: EnhancerContext): EnhancerResult => {
-  const conditionRef = generateNewVariable();
-  const conditionValue = generateNewVariable();
-  const componentRef = generateNewVariable();
+  const conditionAlias = generateNewVariable();
+  const componentAlias = generateNewVariable();
 
   return {
     dependencies: {
       useMemo,
-      [conditionRef]: condition,
-      [componentRef]: component,
+      [conditionAlias]: condition,
+      [componentAlias]: component,
     },
     initialize: `
-      const ${conditionValue} = useMemo(function() { return ${conditionRef}(${PROPS}); }, [${PROPS}]);
-      if (${conditionValue}) {
-        return ${REACT}.createElement(${componentRef}, ${PROPS});
+      if (${conditionAlias}(${PROPS})) {
+        return ${REACT}.createElement(${componentAlias}, ${PROPS});
       }
     `,
     props: [],
