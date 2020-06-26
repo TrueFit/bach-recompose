@@ -1,9 +1,8 @@
 import {memo, FunctionComponent} from 'react';
 import {EnhancerResult} from '@truefit/bach';
+import {HasChanged} from '../types';
 
-export default <T>(
-  fn: (prevProps: T | undefined, nextProps: T | undefined) => boolean,
-) => (): EnhancerResult => {
+export default <T>(fn: HasChanged<T>) => (): EnhancerResult => {
   return {
     dependencies: {},
     initialize: '',

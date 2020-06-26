@@ -1,7 +1,8 @@
 import {ReactNode, useMemo} from 'react';
 import {REACT, PROPS, EnhancerContext, EnhancerResult} from '@truefit/bach';
+import {Evaluator} from '../types';
 
-export default <T>(condition: (t: T | undefined) => boolean, component: ReactNode) => ({
+export default <T>(condition: Evaluator<T>, component: ReactNode) => ({
   generateNewVariable,
 }: EnhancerContext): EnhancerResult => {
   const conditionAlias = generateNewVariable();
