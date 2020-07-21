@@ -26,41 +26,6 @@ Not all of the enhancers require hooks to accomplish their tasks, that said, the
 
 You can find a full React project with simple working examples of each hook, as well as more complex examples that combine hooks here: [https://github.com/TrueFit/bach-examples](https://github.com/TrueFit/bach-examples).
 
-### Enhancer List
-
-- [@truefit/bach-recompose](#truefitbach-recompose)
-  - [Installation](#installation)
-  - [Enhancers](#enhancers)
-    - [Overview](#overview)
-    - [Enhancer List](#enhancer-list)
-    - [mapProps](#mapprops)
-      - [Typescript](#typescript)
-      - [Javascript](#javascript)
-    - [withHandlers](#withhandlers)
-      - [Typescript](#typescript-1)
-      - [Javascript](#javascript-1)
-      - [withLifecycle](#withlifecycle)
-      - [Typescript](#typescript-2)
-      - [Javascript](#javascript-2)
-      - [renameProp](#renameprop)
-      - [Typescript](#typescript-3)
-      - [Javascript](#javascript-3)
-      - [renameProps](#renameprops)
-      - [Typescript](#typescript-4)
-      - [Javascript](#javascript-4)
-      - [renderIf](#renderif)
-      - [Typescript](#typescript-5)
-      - [Javascript](#javascript-5)
-      - [renderNothing](#rendernothing)
-      - [Typescript](#typescript-6)
-      - [Javascript](#javascript-6)
-      - [withProps](#withprops)
-      - [Typescript](#typescript-7)
-      - [Javascript](#javascript-7)
-      - [memo](#memo)
-      - [Typescript](#typescript-8)
-      - [Javascript](#javascript-8)
-
 ### mapProps
 
 Allows you to transform the props from that point in the composition into a new map of props.
