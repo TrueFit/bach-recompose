@@ -13,7 +13,7 @@ export default <T>(lifecycle: LifecycleMap<T>) => ({
   const mapLifecycle = (event: string): void => {
     map[event] = generateNewVariable();
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     dependencies[map[event]] = lifecycle[event];
   };

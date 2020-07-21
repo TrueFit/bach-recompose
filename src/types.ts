@@ -1,4 +1,4 @@
-import {StringKeyMap} from "@truefit/bach";
+import {StringKeyMap} from '@truefit/bach';
 
 export type HandlerWithParameter<T, R> = (t: T) => R;
 export type HandlerWithoutParameter<R> = () => R;
