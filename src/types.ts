@@ -1,9 +1,14 @@
+import {StringKeyMap} from "@truefit/bach";
+
 export type HandlerWithParameter<T, R> = (t: T) => R;
 export type HandlerWithoutParameter<R> = () => R;
 
-export type PropertyMap<T> = {
-  [key: string]: HandlerWithParameter<T, unknown> | HandlerWithoutParameter<unknown> | unknown;
-};
+export type PropertyMap<T> =
+  | {
+      [key: string]: HandlerWithParameter<T, unknown> | HandlerWithoutParameter<unknown>;
+    }
+  | StringKeyMap<T>;
+
 export type CallbackMap<T> = {
   [key: string]: HandlerWithParameter<T, unknown> | HandlerWithoutParameter<unknown>;
 };
