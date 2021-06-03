@@ -1,6 +1,6 @@
 {
   "name": "@truefit/bach-recompose",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "set of enhancers for @truefit/bach inspired by recompose",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -30,7 +30,7 @@
   "homepage": "https://github.com/TrueFit/bach-recompose#readme",
   "peerDependencies": {
     "@truefit/bach": "2.x",
-    "react": "^16.x"
+    "react": "16.x"
   },
   "devDependencies": {
     "@truefit/bach": "2.0.9",
