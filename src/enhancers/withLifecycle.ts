@@ -4,30 +4,29 @@ import {LifecycleMap} from '../types';
 
 type MapKeys = {[key: string]: string};
 
-export default <T>(lifecycle: LifecycleMap<T>) => ({
-  generateNewVariable,
-}: EnhancerContext): EnhancerResult => {
-  const dependencies: StringKeyMap<unknown> = {useRef, useEffect};
-  const map: MapKeys = {};
+export default <T>(lifecycle: LifecycleMap<T>) =>
+  ({generateNewVariable}: EnhancerContext): EnhancerResult => {
+    const dependencies: StringKeyMap<unknown> = {useRef, useEffect};
+    const map: MapKeys = {};
 
-  const mapLifecycle = (event: string): void => {
-    map[event] = generateNewVariable();
+    const mapLifecycle = (event: string): void => {
+      map[event] = generateNewVariable();
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    dependencies[map[event]] = lifecycle[event];
-  };
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      dependencies[map[event]] = lifecycle[event];
+    };
 
-  mapLifecycle('componentDidMount');
-  mapLifecycle('componentDidUpdate');
-  mapLifecycle('componentWillUnmount');
+    mapLifecycle('componentDidMount');
+    mapLifecycle('componentDidUpdate');
+    mapLifecycle('componentWillUnmount');
 
-  const MOUNTED = generateNewVariable();
-  const PREV_PROPS = generateNewVariable();
+    const MOUNTED = generateNewVariable();
+    const PREV_PROPS = generateNewVariable();
 
-  return {
-    dependencies,
-    initialize: `
+    return {
+      dependencies,
+      initialize: `
       const didMount = ${map.componentDidMount};
       const didUpdate = ${map.componentDidUpdate};
       const willUnmount = ${map.componentWillUnmount};
@@ -57,6 +56,6 @@ export default <T>(lifecycle: LifecycleMap<T>) => ({
         }
       }, []);
     `,
-    props: [],
+      props: [],
+    };
   };
-};
